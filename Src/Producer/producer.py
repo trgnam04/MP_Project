@@ -31,14 +31,18 @@ def generate_buy_event():
 
 print("Producer started. Sending messages...")
 
-while True:
-    # Chọn ngẫu nhiên một trong hai topic và tạo event tương ứng
-    topic = random.choice(topics)
-    data = generate_click_event() if topic == 'clicks-topic' else generate_buy_event()
-    
-    # Gửi message tới topic đã chọn
-    producer.send(topic, value=data)
-    print(f"Sent to {topic}: {data}")
-    
-    # Tạo độ trễ ngẫu nhiên giữa các lần gửi
-    time.sleep(random.uniform(0.5, 2))
+def main():
+    while True:
+        # Chọn ngẫu nhiên một trong hai topic và tạo event tương ứng
+        topic = random.choice(topics)
+        data = generate_click_event() if topic == 'clicks-topic' else generate_buy_event()
+        
+        # Gửi message tới topic đã chọn
+        producer.send(topic, value=data)
+        print(f"Sent to {topic}: {data}")
+        
+        # Tạo độ trễ ngẫu nhiên giữa các lần gửi
+        time.sleep(random.uniform(0.5, 2))
+        
+if __name__ == "__main__":
+    main()
